@@ -2,8 +2,14 @@
 
 import { useFormStatus } from "react-dom";
 
-const RegisterButton = () => {
+interface AuthButtonProps {
+  type: "login" | "register"
+}
+
+const AuthButton = ({ type }: AuthButtonProps) => {
   const { pending } = useFormStatus();
+
+  const buttonText = type === "login" ? (pending ? "Authenticating..." : "Login") : (pending ? "Registering..." : "Register");
 
   return (
     <button
@@ -11,9 +17,9 @@ const RegisterButton = () => {
       disabled={pending}
       className="w-full text-white bg-blue-700 font-medium rounded-lg px-5 py-2.5 uppercase hover:bg-blue-800"
     >
-      {pending ? "Registering..." : "Register"}
+      {buttonText}
     </button>
   );
 };
 
-export default RegisterButton;
+export default AuthButton;
